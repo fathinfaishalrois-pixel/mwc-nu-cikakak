@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita & Kegiatan NU Cikakak Wangon</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #007a3d;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #007a3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 122, 61, 0.2);
+        }
+
+        .news-tag {
+            background-color: #e6f4ed;
+            color: #007a3d;
+            font-size: 0.8em;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 1.25em;
+            margin: 0 0 10px 0;
+            color: #1a1a1a;
+        }
+
+        .news-snippet {
+            font-size: 0.95em;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .btn-read {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007a3d;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.7);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8em;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #e74c3c;
+        }
+
+        .modal-body {
+            line-height: 1.7;
+            color: #444;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="section-title">Berita & Kegiatan Terbaru NU Cikakak</h2>
+
+    <div class="news-grid">
+        <div class="news-card" onclick="openNews('news1')">
+            <span class="news-tag">Dakwah & Pengajian</span>
+            <h3 class="news-title">Pengajian Selapanan & Istighotsah Bersama Warga Cikakak</h3>
+            <p class="news-snippet">Ratusan warga Cikakak antusias mengikuti pengajian rutin selapanan dan istighotsah bersama...</p>
+            <span class="btn-read">Klik untuk Baca Selengkapnya &rarr;</span>
+        </div>
+
+        <div class="news-card" onclick="openNews('news2')">
+            <span class="news-tag">Kaderisasi Banom</span>
+            <h3 class="news-title">Pembinaan Kader Banom: Menguatkan Peran Pemuda Desa</h3>
+            <p class="news-snippet">Pengurus NU Cikakak menggelar sesi pembinaan rutin untuk pengurus GP Ansor, Fatayat, IPNU, dan IPPNU...</p>
+            <span class="btn-read">Klik untuk Baca Selengkapnya &rarr;</span>
+        </div>
+
+        <div class="news-card" onclick="openNews('news3')">
+            <span class="news-tag">Sosial & LAZISNU</span>
+            <h3 class="news-title">Penyaluran Beasiswa Santri dan Santunan Dhuafa</h3>
+            <p class="news-snippet">LAZISNU Cikakak menyalurkan bantuan beasiswa bagi santri berprestasi serta bantuan sembako...</p>
+            <span class="btn-read">Klik untuk Baca Selengkapnya &rarr;</span>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="newsModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeNews()">&times;</span>
+        <span class="news-tag" id="modalCategory">Kategori</span>
+        <h2 id="modalTitle" style="color: #007a3d; margin-top: 10px;">Judul Berita</h2>
+        <small id="modalDate" style="color: #888;">Cikakak, Wangon</small>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+    function playClickSound() {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.15);
+    }
+
+    const newsData = {
+        news1: {
+            category: "Dakwah & Pengajian",
+            title: "Pengajian Selapanan & Istighotsah Bersama Warga Cikakak",
+            date: "Cikakak, Wangon",
+            content: "Ratusan warga Desa Cikakak, Wangon, memadati arena pengajian selapanan dan istighotsah rutin. Acara diawali dengan pembacaan Diba' dan dilanjutkan dengan istighotsah untuk mendoakan keselamatan umat serta kemakmuran desa. Ketua Ranting NU Cikakak menyampaikan pentingnya menjaga konsistensi majelis taklim sebagai benteng moral dan pemersatu silaturahmi warga nahdliyin di wilayah Wangon."
+        },
+        news2: {
+            category: "Kaderisasi Banom",
+            title: "Pembinaan Kader Banom: Menguatkan Peran Pemuda di Desa",
+            date: "Cikakak, Wangon",
+            content: "Pengurus Ranting NU Cikakak sukses menggelar pembinaan terpadu untuk Badan Otonom (GP Ansor, Fatayat, IPNU, dan IPPNU). Program ini berfokus pada pelatihan kepemimpinan lokal, wawasan kebangsaan, serta pemanfaatan media digital untuk dakwah ramah. Melalui pembinaan rutin ini, diharapkan generasi muda NU Cikakak mampu menjadi pelopor gerakan sosial dan wirausaha di lingkungan masyarakat."
+        },
+        news3: {
+            category: "Sosial & LAZISNU",
+            title: "Penyaluran Beasiswa Santri dan Santunan Dhuafa Lewat Koin NU",
+            date: "Cikakak, Wangon",
+            content: "Lembaga Amil Zakat, Infak, dan Sedekah NU (LAZISNU) Cikakak kembali menyalurkan dana hasil perolehan gerakan 'Koin NU Cikakak'. Penyaluran tahap ini diberikan dalam bentuk bantuan biaya pendidikan untuk santri berprestasi dari keluarga prasejahtera, serta bantuan sembako bagi puluhan warga dhuafa di wilayah Cikakak Wangon. Transparansi dan akuntabilitas dana terus dijaga demi kepercayaan masyarakat."
+        }
+    };
+
+    function openNews(id) {
+        playClickSound();
+        const data = newsData[id];
+        document.getElementById('modalCategory').innerText = data.category;
+        document.getElementById('modalTitle').innerText = data.title;
+        document.getElementById('modalDate').innerText = data.date;
+        document.getElementById('modalBody').innerText = data.content;
+        document.getElementById('newsModal').classList.add('active');
+    }
+
+    function closeNews() {
+        document.getElementById('newsModal').classList.remove('active');
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('newsModal');
+        if (event.target === modal) {
+            closeNews();
+        }
+    }
+</script>
+
+</body>
+</html>

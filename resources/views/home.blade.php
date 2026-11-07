@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MWC NU Cikakak Wangon - Banyumas</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-emerald: #0f5132;
+            --secondary-teal: #0d9488;
+            --accent-gold: #fbbf24;
+            --dark-navy: #0f172a;
+            --light-slate: #f8fafc;
+            --card-glass: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+            color: #334155;
+            overflow-x: hidden;
+        }
+
+        /* Animated Glowing Top Bar */
+        .top-bar {
+            background: linear-gradient(90deg, #064e3b, #0d9488, #1e293b);
+            background-size: 200% 200%;
+            animation: gradientShift 6s ease infinite;
+            color: #fff;
+            padding: 8px 0;
+            font-size: 0.88rem;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navbar Styling */
+        .navbar-custom {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        .navbar-brand img {
+            height: 48px;
+            filter: drop-shadow(0px 2px 4px rgba(255,255,255,0.2));
+            transition: transform 0.3s ease;
+        }
+        .navbar-brand:hover img {
+            transform: scale(1.05) rotate(2deg);
+        }
+        .nav-link {
+            color: #cbd5e1 !important;
+            font-weight: 600;
+            margin: 0 6px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Carousel & Floating Animation */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
+            color: white;
+            padding: 90px 0 100px 0;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 300px; height: 300px;
+            background: rgba(13, 148, 136, 0.3);
+            filter: blur(80px);
+            border-radius: 50%;
+        }
+
+        .floating-badge {
+            display: inline-block;
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            color: var(--accent-gold);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+            100% { box-shadow: 0 0 15px 5px rgba(251, 191, 36, 0.1); }
+        }
+
+        .btn-animated {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            color: #0f172a;
+            font-weight: 700;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-animated:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.5);
+            color: #000;
+        }
+
+        .btn-outline-custom {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-custom:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Glassmorphism Cards with Hover Effects */
+        .glass-card {
+            background: white;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            height: 100%;
+        }
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(13, 148, 136, 0.15);
+            border-color: var(--secondary-teal);
+        }
+
+        /* Icon Animation */
+        .icon-box {
+            width: 65px;
+            height: 65px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #0f5132, #0d9488);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            transition: transform 0.4s ease;
+        }
+        .glass-card:hover .icon-box {
+            transform: rotateY(180deg) scale(1.1);
+        }
+
+        /* Section Headings */
+        .section-title {
+            position: relative;
+            font-weight: 800;
+            color: var(--dark-navy);
+            margin-bottom: 15px;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-teal), var(--accent-gold));
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: #090d16;
+            color: #94a3b8;
+            padding: 60px 0 20px 0;
+            border-top: 4px solid var(--secondary-teal);
+        }
+        footer h5 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .footer-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .footer-link:hover {
+            color: var(--accent-gold);
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-location-dot text-warning me-2"></i> Desa Cikakak, Kec. Wangon, Kab. Banyumas, Jawa Tengah
+            </div>
+            <div class="d-none d-md-block">
+                <i class="fas fa-envelope text-warning me-1"></i> mwcnucikakakwangon@gmail.com
+                <span class="mx-2">|</span>
+                <i class="fas fa-landmark text-warning me-1"></i> Saka Tunggal Heritage Region
+            </div>
+        </div>
+    </div>
+
+    <!-- Animated Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="fas fa-star-and-crescent fa-2x text-warning"></i>
+                <div>
+                    <span class="fw-bold d-block leading-tight text-white">MWC NU CIKAKAK</span>
+                    <small class="text-success-emphasis text-uppercase font-monospace" style="font-size:0.7rem; color: #34d399 !important;">Kec. Wangon - Banyumas</small>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#profil">Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#berita">Berita & Agenda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#banom">Lembaga & Banom</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a href="#infaq" class="btn btn-animated btn-sm text-dark px-4"><i class="fas fa-heart me-1"></i> Infak NU</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Carousel Section -->
+    <section id="beranda" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center gy-5">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                    <span class="floating-badge">
+                        <i class="fas fa-mosque me-2"></i> PUSAT DAKWAH CIKAKAK WANGON
+                    </span>
+                    <h1 class="display-4 fw-extrabold text-white mb-3">
+                        Mengabdi untuk Ummat, Menjaga Tradisi Ahlu Sunnah
+                    </h1>
+                    <p class="lead text-slate-300 mb-4" style="color: #cbd5e1;">
+                        Selamat datang di portal resmi Majelis Wakil Cabang Nahdlatul Ulama (MWC NU) Desa Cikakak, Kecamatan Wangon, Kabupaten Banyumas.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#berita" class="btn btn-animated"><i class="fas fa-newspaper me-2"></i> Berita Terbaru</a>
+                        <a href="#profil" class="btn btn-outline-custom"><i class="fas fa-info-circle me-2"></i> Selengkapnya</a>
+                    </div>
+                </div>
+
+                <!-- Carousel Box -->
+                <div class="col-lg-6" data-aos="zoom-in" data-aos-duration="1200">
+                    <div id="heroCarousel" class="carousel slide shadow-lg rounded-4 overflow-hidden border border-secondary" data-bs-ride="carousel" style="border-color: rgba(255,255,255,0.15) !important;">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="4000">
+                                <div class="p-5 text-center bg-dark text-white d-flex flex-column align-items-center justify-content-center" style="min-height: 340px; background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)), url('https://images.unsplash.com/photo-1542816417-0983cbe82752?auto=format&fit=crop&w=800&q=80') center/cover;">
+                                    <i class="fas fa-kaaba fa-3x text-warning mb-3"></i>
+                                    <h4 class="fw-bold">Pengajian Selapanan Rutin</h4>
+                                    <p class="text-slate-300">Merajut silaturahmi warga Nahdliyin Cikakak Wangon setiap putaran selapan.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" data-bs-interval="4000">
+                                <div class="p-5 text-center bg-dark text-white d-flex flex-column align-items-center justify-content-center" style="min-height: 340px; background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)), url('https://images.unsplash.com/photo-1590076175571-4b5459efb08c?auto=format&fit=crop&w=800&q=80') center/cover;">
+                                    <i class="fas fa-hand-holding-heart fa-3x text-info mb-3"></i>
+                                    <h4 class="fw-bold">LAZISNU Cikakak Wangon</h4>
+                                    <p class="text-slate-300">Pentasyarufan Koin NU untuk kemandirian ekonomi & santunan anak yatim.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" data-bs-interval="4000">
+                                <div class="p-5 text-center bg-dark text-white d-flex flex-column align-items-center justify-content-center" style="min-height: 340px; background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)), url('https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80') center/cover;">
+                                    <i class="fas fa-users-gear fa-3x text-warning mb-3"></i>
+                                    <h4 class="fw-bold">Kaderisasi Ansor & Fatayat</h4>
+                                    <p class="text-slate-300">Mencetak generasi muda NU Wangon yang tangguh, cerdas, & berakhlaqul karimah.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan / Program Utama Section -->
+    <section id="profil" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Program Utama MWC NU Cikakak</h2>
+                <p class="text-muted">Mengabdi untuk kejayaan Islam Ahlussunnah wal Jamaah di wilayah Wangon, Banyumas</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card p-4">
+                        <div class="icon-box">
+                            <i class="fas fa-book-quran"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Dakwah & Pengajian</h4>
+                        <p class="text-muted">Penyelenggaraan pengajian rutin selapanan, majlis taklim, dan istighotsah bersama warga Cikakak Wangon.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card p-4">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #0d9488, #2563eb);">
+                            <i class="fas fa-handshake-angle"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Sosial & LAZISNU</h4>
+                        <p class="text-muted">Pengelolaan Koin NU Cikakak untuk santunan dhuafa, beasiswa santri, dan tanggap bencana daerah Wangon.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card p-4">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #d97706, #b45309);">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Kaderisasi Banom</h4>
+                        <p class="text-muted">Pembinaan rutin bagi GP Ansor, Fatayat, IPNU, dan IPPNU Cikakak untuk mencetak pemuda berwawasan luas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Berita / Agenda Grid -->
+    <section id="berita" class="py-5 bg-white">
+        <div class="container py-4">
+            <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-up">
+                <div>
+                    <h2 class="section-title text-start ms-0">Berita & Kegiatan Terbaru</h2>
+                    <p class="text-muted mb-0">Kabar kegiatan MWC NU Cikakak, Wangon, Banyumas</p>
+                </div>
+                <a href="#" class="btn btn-outline-success rounded-pill px-4 d-none d-md-inline-block">Lihat Semua</a>
+            </div>
+
+            <div class="row g-4">
+                <!-- Berita Card 1 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card">
+                        <div class="position-relative overflow-hidden">
+                            <img src="{{ asset ('image/ngaji.jpg') }}" class="card-img-top" alt="Pengajian" style="height:200px; object-fit:cover;">
+                            <span class="badge bg-success position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill">Kegiatan</span>
+                        </div>
+                        <div class="p-4">
+                            <small class="text-muted"><i class="far fa-calendar me-1"></i> 2 Hari yang lalu</small>
+                            <h5 class="fw-bold mt-2 text-dark">Pengajian Rutin Selapanan MWC NU Cikakak di Saka Tunggal</h5>
+                            <p class="text-muted small">Kegiatan selapanan jemaah Nahdliyin Cikakak Wangon dihadiri ratusan warga di kompleks Saka Tunggal...</p>
+                            <hr class="my-3 text-secondary">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="fw-semibold text-teal" style="color:#0d9488"><i class="fas fa-user me-1"></i> LTM MWC NU</small>
+                                <a href="#" class="text-success fw-bold text-decoration-none small">Baca <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Berita Card 2 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card">
+                        <div class="position-relative overflow-hidden">
+                            <img src="{{ asset ('image/sembako.jpg') }}" class="card-img-top" alt="Sembako" style="height:200px; object-fit:cover;">
+                            <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill">Sosial</span>
+                        </div>
+                        <div class="p-4">
+                            <small class="text-muted"><i class="far fa-calendar me-1"></i> 5 Hari yang lalu</small>
+                            <h5 class="fw-bold mt-2 text-dark">LAZISNU Cikakak Salurkan 150 Paket Sembako</h5>
+                            <p class="text-muted small">Hasil koin NU warga desa Cikakak Wangon didistribusikan kepada warga dhuafa & lansia penerima manfaat...</p>
+                            <hr class="my-3 text-secondary">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="fw-semibold text-teal" style="color:#0d9488"><i class="fas fa-user me-1"></i> LAZISNU Cikakak</small>
+                                <a href="#" class="text-success fw-bold text-decoration-none small">Baca <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Berita Card 3 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card">
+                        <div class="position-relative overflow-hidden">
+                            <img src="{{ asset ('image/digital.jpg') }}" class="card-img-top" alt="Digitalisasi" style="height:200px; object-fit:cover;">
+                            <span class="badge bg-info position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill">Pendidikan</span>
+                        </div>
+                        <div class="p-4">
+                            <small class="text-muted"><i class="far fa-calendar me-1"></i> 8 Hari yang lalu</small>
+                            <h5 class="fw-bold mt-2 text-dark">Pelatihan Digitalisasi Media Ansor & Fatayat Cikakak</h5>
+                            <p class="text-muted small">Pelatihan literasi digital dan pengelolaan media informasi organisasi bagi pemuda NU Wangon...</p>
+                            <hr class="my-3 text-secondary">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="fw-semibold text-teal" style="color:#0d9488"><i class="fas fa-user me-1"></i> Cyber NU Cikakak</small>
+                                <a href="#" class="text-success fw-bold text-decoration-none small">Baca <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-5">
+                    <h4 class="text-white fw-bold mb-3"><i class="fas fa-star-and-crescent text-warning me-2"></i> MWC NU Cikakak Wangon</h4>
+                    <p class="text-slate-400">Pengurus Majelis Wakil Cabang Nahdlatul Ulama Desa Cikakak, Kecamatan Wangon, Kabupaten Banyumas, Jawa Tengah.</p>
+                    <p><i class="fas fa-map-marker-alt text-warning me-2"></i> Sekretariat: Desa Cikakak, Wangon, Banyumas 53152</p>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <h5>Navigasi</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#beranda" class="footer-link">Beranda</a></li>
+                        <li><a href="#profil" class="footer-link">Profil MWC NU</a></li>
+                        <li><a href="#berita" class="footer-link">Berita & Agenda</a></li>
+                        <li><a href="#banom" class="footer-link">Lembaga & Banom</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <h5>Hubungi Kami</h5>
+                    <p class="mb-2"><i class="fab fa-whatsapp text-success me-2"></i> 0812-3456-7890 (Admin)</p>
+                    <p class="mb-3"><i class="fas fa-envelope text-warning me-2"></i> mwcnucikakakwangon@gmail.com</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="text-center py-2 text-muted small">
+                &copy; {{ date('Y') }} MWC NU Cikakak, Wangon, Banyumas. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init Scroll Animations
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+</body>
+</html>

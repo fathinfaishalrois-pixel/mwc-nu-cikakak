@@ -1,0 +1,13 @@
+{
+  "name": "mwc-nu-cikakak",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-assets.mjs",
+    "dev": "node scripts/build-assets.mjs --watch"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}
