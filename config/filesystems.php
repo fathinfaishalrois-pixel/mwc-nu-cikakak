@@ -41,23 +41,21 @@ return [
         // Keep the existing disk name because the current controllers use
         // store(..., 'public') and Storage::disk('public'). Local by default;
         // switch to the Supabase S3-compatible endpoint in production.
-        'public' => [
-            'driver' => env('PUBLIC_FILESYSTEM_DRIVER', 'local'),
-            'root' => storage_path('app/public'),
-            'url' => env('AWS_URL') ?: rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
-            // Supabase S3 does not implement x-amz-acl; visibility is set to private
-            // here while public reads are controlled by the bucket's dashboard setting.
-            'visibility' => 'private',
-            'throw' => true,
-            'report' => false,
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-            'bucket' => env('AWS_BUCKET'),
-            'endpoint' => env('AWS_ENDPOINT'),
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', true),
-        ],
+       'public' => [
+    'driver' => env('PUBLIC_FILESYSTEM_DRIVER', 'local'),
+    'root' => storage_path('app/public'),
+    'url' => env('AWS_URL') ?: rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage',
+    'visibility' => 'public',
+    'throw' => true,
+    'report' => false,
 
+    'key' => env('AWS_ACCESS_KEY_ID'),
+    'secret' => env('AWS_SECRET_ACCESS_KEY'),
+    'region' => env('AWS_DEFAULT_REGION', 'ap-southeast-1'),
+    'bucket' => env('AWS_BUCKET'),
+    'endpoint' => env('AWS_ENDPOINT'),
+    'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', true),
+],
         // Optional private bucket for sensitive uploads. Existing Infak upload
         // code still uses the public disk; migrate that feature deliberately
         // before storing real private payment evidence here.
